@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Link Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Links</h1>
+    <div class="controls">
+      <button id="addCategoryBtn">+ Kategorie</button>
+      <button id="addLinkBtn">+ Link</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="categories" class="grid"></div>
+  </main>
+
+  <template id="category-template">
+    <section class="card">
+      <div class="card-header">
+        <h2 class="cat-name"></h2>
+        <div class="cat-actions">
+          <button class="del-cat">Löschen</button>
+        </div>
+      </div>
+      <ul class="links-list"></ul>
+    </section>
+  </template>
+
+  <template id="link-template">
+    <li class="link-item">
+      <a class="link-anchor" target="_blank" rel="noopener noreferrer"></a>
+      <div class="link-actions">
+        <button class="edit-link">✎</button>
+        <button class="del-link">✕</button>
+      </div>
+    </li>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
