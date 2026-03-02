@@ -13,8 +13,10 @@ npm start
 
 Health-Check
 
+Im Browser öffnen oder per CLI prüfen:
+
 ```bash
-http://localhost:3000/health
+curl http://localhost:3000/health
 ```
 
 Erwartete Antwort enthält mindestens: `ok`, `version`, `uptime`, `timestamp`
@@ -46,6 +48,16 @@ $env:DB_FILE='D:\\app-data\\dashboard\\data.db'; npm start
 
 ```bash
 DB_FILE=/var/lib/dashboard/data.db npm start
+```
+
+Weitere Konfiguration
+
+- `PORT` (optional): Standard ist `3000`
+
+Beispiel:
+
+```bash
+PORT=4000 npm start
 ```
 
 Dateien
