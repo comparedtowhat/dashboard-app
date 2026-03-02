@@ -36,6 +36,7 @@ Optionaler DB-Pfad (`DB_FILE`)
 
 - Standard ist `./data.db` im Projektordner.
 - Mit `DB_FILE` kannst du den Speicherort überschreiben (absolut oder relativ zu `db.js`).
+- Falls das Zielverzeichnis noch nicht existiert, wird es automatisch erstellt.
 
 Beispiele:
 
