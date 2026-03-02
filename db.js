@@ -1,11 +1,18 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 const configuredDbFile = process.env.DB_FILE;
 const dbFile = configuredDbFile
   ? (path.isAbsolute(configuredDbFile)
       ? configuredDbFile
       : path.resolve(__dirname, configuredDbFile))
   : path.join(__dirname, 'data.db');
+
+const dbDir = path.dirname(dbFile);
+if (dbDir && !fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
 const db = new sqlite3.Database(dbFile);
 
 db.serialize(() => {
