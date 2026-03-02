@@ -4,7 +4,10 @@
   "description": "Minimal personal link dashboard for new tab page",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:helper": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/start-dashboard.ps1",
+    "autostart:install": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/install-autostart.ps1",
+    "autostart:remove": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/remove-autostart.ps1"
   },
   "author": "",
   "license": "MIT",

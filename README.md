@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/25532607/README.md)
 # Link Dashboard
 
 Minimaler persönlicher Link-Dashboard (für New Tab) — Express + SQLite.
@@ -11,6 +10,14 @@ npm start
 ```
 
 Öffne dann http://localhost:3000
+
+Health-Check
+
+```bash
+http://localhost:3000/health
+```
+
+Erwartete Antwort enthält mindestens: `ok`, `version`, `uptime`, `timestamp`
 
 Features
 
@@ -28,3 +35,30 @@ Dateien
 Tipps
 
 - Für Browser-New-Tab: setze die neue Tab-Seite auf `http://localhost:3000` oder kopiere die `public/index.html` in eine statische-Host-Umgebung.
+
+Windows: robuster Start + Autostart
+
+```bash
+npm run start:helper
+```
+
+Startet den Server bei Bedarf im Hintergrund und öffnet `http://localhost:3000`.
+
+Autostart beim Login einrichten:
+
+```bash
+npm run autostart:install
+```
+
+Richtet für höhere Zuverlässigkeit zwei Mechanismen ein:
+
+- Startup-Ordner-Eintrag
+- Geplanter Task beim Benutzer-Login
+
+Autostart wieder entfernen:
+
+```bash
+npm run autostart:remove
+```
+
+Alternativ per Doppelklick: `start-dashboard.cmd`
