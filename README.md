@@ -32,6 +32,21 @@ Git/Deployment-Hinweis
 - Beim ersten Start wird die DB automatisch erstellt und mit Beispiel-Daten befüllt.
 - Für produktive Daten solltest du ein persistentes Volume/Verzeichnis für die SQLite-Datei verwenden.
 
+Optionaler DB-Pfad (`DB_FILE`)
+
+- Standard ist `./data.db` im Projektordner.
+- Mit `DB_FILE` kannst du den Speicherort überschreiben (absolut oder relativ zu `db.js`).
+
+Beispiele:
+
+```powershell
+$env:DB_FILE='D:\\app-data\\dashboard\\data.db'; npm start
+```
+
+```bash
+DB_FILE=/var/lib/dashboard/data.db npm start
+```
+
 Dateien
 
 - `server.js` — Express API + statische Dateien
