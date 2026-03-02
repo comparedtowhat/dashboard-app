@@ -132,6 +132,7 @@ async function getCategoriesWithLinks() {
 }
 
 module.exports = {
+  dbFile,
   getCategoriesWithLinks,
   createCategory: (name, panel = 'Work') => run('INSERT INTO categories(name, panel) VALUES(?,?)', [name, panel]),
   updateCategoryName: (id, name) => run('UPDATE categories SET name = ? WHERE id = ?', [name, id]),

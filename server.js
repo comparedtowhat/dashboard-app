@@ -130,4 +130,5 @@ app.delete('/api/links/:id', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`SQLite DB: ${db.dbFile}`);
 });
