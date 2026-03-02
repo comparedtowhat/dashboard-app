@@ -107,3 +107,10 @@ Troubleshooting
 - DB-Datei kann nicht geöffnet werden (`SQLITE_CANTOPEN`):
 	- prüfe, ob der Pfad aus `DB_FILE` schreibbar ist
 	- bei relativen Pfaden wird relativ zu `db.js` aufgelöst
+
+Contributing
+
+- Fork/Branch erstellen und lokal mit `npm install` + `npm start` testen.
+- Änderungen klein halten und auf einen Zweck pro Commit fokussieren.
+- Commit-Messages klar formulieren (z. B. `Fix ...`, `Add ...`, `Refactor ...`).
+- Danach Pull Request gegen `main` erstellen.
