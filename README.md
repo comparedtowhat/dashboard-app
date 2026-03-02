@@ -96,3 +96,14 @@ npm run autostart:remove
 ```
 
 Alternativ per Doppelklick: `start-dashboard.cmd`
+
+Troubleshooting
+
+- Port `3000` bereits belegt (`EADDRINUSE`):
+	- anderen Port nutzen, z. B. `PORT=4000 npm start`
+- PowerShell blockiert Skripte:
+	- `npm run start:helper` nutzt bereits `-ExecutionPolicy Bypass`
+	- alternativ temporär in einer Shell: `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
+- DB-Datei kann nicht geöffnet werden (`SQLITE_CANTOPEN`):
+	- prüfe, ob der Pfad aus `DB_FILE` schreibbar ist
+	- bei relativen Pfaden wird relativ zu `db.js` aufgelöst
