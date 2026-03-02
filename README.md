@@ -26,6 +26,12 @@ Features
 - Kategorien erstellen / löschen
 - Daten persistiert in `data.db` (SQLite)
 
+Git/Deployment-Hinweis
+
+- `data.db` ist absichtlich nicht versioniert (`.gitignore`).
+- Beim ersten Start wird die DB automatisch erstellt und mit Beispiel-Daten befüllt.
+- Für produktive Daten solltest du ein persistentes Volume/Verzeichnis für die SQLite-Datei verwenden.
+
 Dateien
 
 - `server.js` — Express API + statische Dateien
