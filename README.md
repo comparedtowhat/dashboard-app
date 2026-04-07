@@ -9,6 +9,12 @@ Das Projekt ist jetzt für zwei Betriebsarten vorbereitet:
 - lokal: `Express + SQLite`
 - auf Vercel: `Serverless API + Upstash Redis`
 
+Privater Zugriff
+
+- Wenn `DASHBOARD_PASSWORD` gesetzt ist, schützt die App die komplette Oberfläche und die API per Login.
+- Das ist der empfohlene Weg, wenn die Seite auch auf der öffentlichen Production-Domain privat bleiben soll.
+- Nach dem Setzen der Variable ist ein neuer Deploy nötig.
+
 Wichtig: die bisherige `SQLite`-Datei ist auf Vercel **nicht** dauerhaft nutzbar, weil das Dateisystem dort nicht persistent ist. Für Vercel muss deshalb ein Redis-Store per Upstash konfiguriert werden.
 
 Vercel-Setup
@@ -16,6 +22,7 @@ Vercel-Setup
 1. Repository bei Vercel importieren
 2. In Vercel eine `Redis`-/`Upstash`-Integration anbinden
 3. Diese Environment Variables setzen:
+   - `DASHBOARD_PASSWORD`
    - bevorzugt: `REDIS_URL`
    - alternativ: `UPSTASH_REDIS_REST_URL`
    - alternativ: `UPSTASH_REDIS_REST_TOKEN`
@@ -108,6 +115,7 @@ DB_FILE=/var/lib/dashboard/data.db npm start
 Weitere Konfiguration
 
 - `PORT` (optional): Standard ist `3000`
+- `DASHBOARD_PASSWORD`: aktiviert Passwortschutz für die gesamte App
 - `REDIS_URL`: aktiviert Redis-Speicherung auf Vercel
 - alternativ `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`
 
