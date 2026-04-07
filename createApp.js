@@ -253,15 +253,15 @@ function createApp() {
   });
 
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'protected-index.html'));
   });
 
   app.get('/app.js', (req, res) => {
-    res.type('application/javascript').sendFile(path.join(__dirname, 'app.js'));
+    res.type('application/javascript').sendFile(path.join(__dirname, 'public', 'app.js'));
   });
 
   app.get('/style.css', (req, res) => {
-    res.type('text/css').sendFile(path.join(__dirname, 'style.css'));
+    res.type('text/css').sendFile(path.join(__dirname, 'public', 'style.css'));
   });
 
   app.use(express.static(path.join(__dirname, 'public')));
