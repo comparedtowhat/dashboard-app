@@ -16,8 +16,9 @@ Vercel-Setup
 1. Repository bei Vercel importieren
 2. In Vercel eine `Redis`-/`Upstash`-Integration anbinden
 3. Diese Environment Variables setzen:
-   - `UPSTASH_REDIS_REST_URL`
-   - `UPSTASH_REDIS_REST_TOKEN`
+   - bevorzugt: `REDIS_URL`
+   - alternativ: `UPSTASH_REDIS_REST_URL`
+   - alternativ: `UPSTASH_REDIS_REST_TOKEN`
 4. Deploy ausführen
 
 Danach läuft:
@@ -37,8 +38,9 @@ Migration von lokaler SQLite nach Upstash Redis
 Wenn du bestehende lokale Daten aus `data.db` nach Upstash Redis übernehmen willst:
 
 1. Lokal die Vercel-Env-Variablen setzen:
-   - `UPSTASH_REDIS_REST_URL`
-   - `UPSTASH_REDIS_REST_TOKEN`
+   - bevorzugt: `REDIS_URL`
+   - alternativ: `UPSTASH_REDIS_REST_URL`
+   - alternativ: `UPSTASH_REDIS_REST_TOKEN`
 2. Optional `DB_FILE` setzen, falls deine SQLite-Datei nicht `./data.db` ist.
 3. Migration starten:
 
@@ -106,7 +108,8 @@ DB_FILE=/var/lib/dashboard/data.db npm start
 Weitere Konfiguration
 
 - `PORT` (optional): Standard ist `3000`
-- `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`: aktivieren Redis/Upstash-Speicherung auf Vercel
+- `REDIS_URL`: aktiviert Redis-Speicherung auf Vercel
+- alternativ `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`
 
 Beispiel:
 

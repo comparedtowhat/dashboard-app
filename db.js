@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
+const { createClient } = require('redis');
 
 const DASHBOARD_STATE_KEY = 'dashboard:data';
 
@@ -215,10 +216,40 @@ function createLocalSqliteStore() {
 }
 
 function createVercelKvStore() {
+  const redisUrl = process.env.REDIS_URL;
   const apiUrl = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const apiToken = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  const client = redisUrl ? createClient({ url: redisUrl }) : null;
+  let clientReadyPromise = null;
+
+  async function ensureRedisClient() {
+    if (!client) {
+      throw new Error('Missing REDIS_URL');
+    }
+    if (!clientReadyPromise) {
+      client.on('error', (err) => {
+        console.error('Redis client error:', err.message);
+      });
+      clientReadyPromise = client.connect();
+    }
+    await clientReadyPromise;
+    return client;
+  }
 
   async function kvRequest(command, ...parts) {
+    if (client) {
+      const redis = await ensureRedisClient();
+      const upper = command.toUpperCase();
+      if (upper === 'GET') {
+        return redis.get(String(parts[0]));
+      }
+      if (upper === 'SET') {
+        await redis.set(String(parts[0]), String(parts[1]));
+        return 'OK';
+      }
+      throw new Error(`Unsupported Redis command: ${command}`);
+    }
+
     const endpoint = apiUrl.replace(/\/$/, '');
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -392,7 +423,8 @@ function createVercelKvStore() {
 }
 
 const hasVercelKvConfig = Boolean(
-  (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
+  process.env.REDIS_URL
+  || (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
   || (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN)
 );
 const store = hasVercelKvConfig ? createVercelKvStore() : createLocalSqliteStore();

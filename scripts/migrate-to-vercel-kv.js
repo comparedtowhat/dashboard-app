@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const { createClient } = require('redis');
 
 const DASHBOARD_STATE_KEY = 'dashboard:data';
 
@@ -35,11 +36,29 @@ function get(db, sql, params = []) {
 }
 
 async function kvRequest(command, ...parts) {
+  const redisUrl = process.env.REDIS_URL;
   const apiUrl = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const apiToken = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
 
+  if (redisUrl) {
+    const client = createClient({ url: redisUrl });
+    await client.connect();
+    try {
+      if (command.toUpperCase() === 'SET') {
+        await client.set(String(parts[0]), String(parts[1]));
+        return 'OK';
+      }
+      if (command.toUpperCase() === 'GET') {
+        return client.get(String(parts[0]));
+      }
+      throw new Error(`Unsupported Redis command: ${command}`);
+    } finally {
+      await client.quit();
+    }
+  }
+
   if (!apiUrl || !apiToken) {
-    throw new Error('Missing UPSTASH_REDIS_REST_URL or UPSTASH_REDIS_REST_TOKEN');
+    throw new Error('Missing REDIS_URL or UPSTASH_REDIS_REST_URL/UPSTASH_REDIS_REST_TOKEN');
   }
 
   const response = await fetch(apiUrl.replace(/\/$/, ''), {
