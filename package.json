@@ -7,7 +7,8 @@
     "start": "node server.js",
     "start:helper": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/start-dashboard.ps1",
     "autostart:install": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/install-autostart.ps1",
-    "autostart:remove": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/remove-autostart.ps1"
+    "autostart:remove": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/remove-autostart.ps1",
+    "migrate:vercel-kv": "node ./scripts/migrate-to-vercel-kv.js"
   },
   "author": "",
   "license": "MIT",
