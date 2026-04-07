@@ -40,6 +40,10 @@
     {
       "source": "/health",
       "destination": "/api/health.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.js"
     }
   ]
 }
